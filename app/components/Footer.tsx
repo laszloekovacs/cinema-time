@@ -5,7 +5,7 @@ import { Link as ChakraLink } from "@chakra-ui/react"
 
 const Footer = () => {
   return (
-    <Box backgroundColor="gray.600" color="white">
+    <Box backgroundColor="gray.600" color="white" h="min-content">
       <Container maxW="container.lg">
         <ChakraLink as={Link} href="/">
           Visit me on github
