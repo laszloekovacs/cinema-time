@@ -31,7 +31,7 @@ const hoursThisMonth = [
 
 const MonthHoursTable = () => {
   return (
-    <TableContainer>
+    <TableContainer my={6}>
       <Table size={"sm"}>
         <TableCaption>
           Employee Hours This Month till date{" "}
