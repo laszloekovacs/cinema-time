@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Link as ChakraLink, Flex } from "@chakra-ui/react"
 
 const LinkList = () => (
-  <Flex gap={4}>
+  <Flex gap={4} my={4}>
     <ChakraLink as={Link} href="/">
       Home
     </ChakraLink>
