@@ -8,6 +8,7 @@ import {
   Input,
   Select,
   Stack,
+  FormErrorMessage,
 } from "@chakra-ui/react"
 import { useFieldArray, useForm } from "react-hook-form"
 
@@ -46,6 +47,9 @@ const AddShiftForm = () => {
             <FormControl>
               <FormLabel>Start</FormLabel>
               <Input type="time" {...register("start", { required: true })} />
+              <FormErrorMessage>
+                {formState.errors.root?.message}
+              </FormErrorMessage>
             </FormControl>
             <FormControl>
               <FormLabel>End</FormLabel>

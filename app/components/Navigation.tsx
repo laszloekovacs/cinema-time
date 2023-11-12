@@ -23,11 +23,6 @@ const Navigation = () => (
         Shifts
       </ChakraLink>
     </Tooltip>
-    <Tooltip label="print report" openDelay={1500} hasArrow>
-      <ChakraLink as={Link} href="/print-report">
-        Print Report
-      </ChakraLink>
-    </Tooltip>
   </Flex>
 )
 
