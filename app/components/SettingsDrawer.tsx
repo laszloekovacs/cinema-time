@@ -26,9 +26,7 @@ const SettingsDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Settings</DrawerHeader>
 
-          <DrawerBody>
-            <DbResetButton />
-          </DrawerBody>
+          <DrawerBody>{"body"}</DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={"auto"} onClick={onClose}>

@@ -1,6 +1,7 @@
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react"
 import React from "react"
 import EmployeeListItem from "./EmployeeListItem"
+import { pool } from "@/db"
 
 const employees = [
   {
@@ -20,7 +21,26 @@ const employees = [
   },
 ]
 
-const EmployeesList = () => {
+type Employee = {
+  id: number
+  name: string
+  contact: string
+}
+
+const getEmployees = async () => {
+  const query = {
+    text: "SELECT * FROM employees",
+    values: [],
+  }
+
+  const result = await pool.query<Employee>(query)
+
+  return result.rows
+}
+
+const EmployeesList = async () => {
+  const list = await getEmployees()
+
   return (
     <TableContainer my={6} mx={"auto"}>
       <Table>
@@ -31,7 +51,7 @@ const EmployeesList = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {employees.map((employee) => (
+          {list.map((employee) => (
             <EmployeeListItem key={employee.id} {...employee} />
           ))}
         </Tbody>
