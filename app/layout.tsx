@@ -24,7 +24,7 @@ export default function RootLayout({
             p={0}
             m={0}
             gap={6}
-            templateRows={"1fr auto 1fr"}
+            templateRows={"auto 1fr auto"}
           >
             <Header />
             {children}

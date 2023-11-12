@@ -2,18 +2,18 @@ import React from "react"
 import Link from "next/link"
 import { Link as ChakraLink, Flex } from "@chakra-ui/react"
 
-const LinkList = () => (
+const Navigation = () => (
   <Flex gap={4} my={4}>
     <ChakraLink as={Link} href="/">
       Home
     </ChakraLink>
-    <ChakraLink as={Link} href="/employee">
+    <ChakraLink as={Link} href="/employees">
       Employees
     </ChakraLink>
-    <ChakraLink as={Link} href="/report">
+    <ChakraLink as={Link} href="/reports">
       Reports
     </ChakraLink>
   </Flex>
 )
 
-export default LinkList
+export default Navigation

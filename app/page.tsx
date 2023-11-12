@@ -3,7 +3,7 @@ import { Container, Grid, Heading } from "@chakra-ui/react"
 import MonthHoursTable from "./components/MonthHoursTable"
 import MonthShifts from "./components/MonthShifts"
 
-const Page = () => {
+const Home = () => {
   return (
     <Container maxW="container.lg">
       <MonthHoursTable />
@@ -12,4 +12,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Home
