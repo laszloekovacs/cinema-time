@@ -1,7 +1,13 @@
 "use client"
 import React from "react"
-import { Formik, Form, Field } from "formik"
+import { Formik, Form, Field, FieldArray } from "formik"
 import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -9,7 +15,10 @@ import {
   HStack,
   Heading,
   Input,
+  List,
+  ListItem,
   Select,
+  VStack,
 } from "@chakra-ui/react"
 
 const AddShiftForm = () => (
@@ -21,6 +30,8 @@ const AddShiftForm = () => (
         date: "",
         startTime: "",
         endTime: "",
+        movies: [],
+        entry: "",
       }}
       onSubmit={(values) => {
         alert(JSON.stringify(values, null, 2))
@@ -46,45 +57,98 @@ const AddShiftForm = () => (
 
           {props.values.employeeId != "" && (
             <>
-              <HStack>
-                <FormControl>
-                  <FormLabel>Date</FormLabel>
-                  <Input
-                    type="date"
-                    name="date"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.date}
-                  />
-                </FormControl>
+              <FormControl>
+                <FormLabel>Date</FormLabel>
+                <Input
+                  type="date"
+                  name="date"
+                  required
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.date}
+                />
+              </FormControl>
 
-                <FormControl>
-                  <FormLabel>Start Time</FormLabel>
-                  <Input
-                    name="startTime"
-                    placeholder="15:30"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.startTime}
-                  />
-                </FormControl>
+              <FormControl>
+                <FormLabel>Start Time</FormLabel>
+                <Input
+                  type="time"
+                  name="startTime"
+                  placeholder="15:30"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.startTime}
+                />
+              </FormControl>
 
-                <FormControl>
-                  <FormLabel>End Time</FormLabel>
-                  <Input
-                    name="endTime"
-                    placeholder="20:00"
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.endTime}
-                  />
-                </FormControl>
-              </HStack>
+              <FormControl>
+                <FormLabel>End Time</FormLabel>
+                <Input
+                  type="time"
+                  name="endTime"
+                  pattern="[0-9]{2}:[0-9]{2}"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.endTime}
+                />
+                <FormErrorMessage>{props.errors.endTime}</FormErrorMessage>
+              </FormControl>
+
+              <FieldArray
+                name="movies"
+                render={(helpers) => (
+                  <>
+                    <FormLabel>Movies</FormLabel>
+                    <VStack>
+                      <List>
+                        {props.values.movies.map((movie, index) => (
+                          <ListItem key={index}>
+                            {movie}
+                            <Button onClick={() => helpers.remove(index)}>
+                              -
+                            </Button>
+                          </ListItem>
+                        ))}
+                      </List>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          name="entry"
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          value={props.values.entry}
+                        />
+                      </FormControl>
+                      <Button
+                        onClick={() => {
+                          helpers.push(props.values.entry)
+                          props.values.entry = ""
+                        }}
+                      >
+                        Add Movie
+                      </Button>
+                    </VStack>
+                  </>
+                )}
+              ></FieldArray>
 
               <div>
                 <Button disabled={props.isSubmitting}>Submit</Button>
-                <pre>{JSON.stringify(props.values, null, 2)}</pre>
               </div>
+
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      Debug form values
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel>
+                    <pre>{JSON.stringify(props.values, null, 2)}</pre>
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
             </>
           )}
         </Form>
