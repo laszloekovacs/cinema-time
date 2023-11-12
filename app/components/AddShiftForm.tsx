@@ -1,12 +1,24 @@
 "use client"
-import { Stack } from "@chakra-ui/react"
+import {
+  FormControl,
+  FormLabel,
+  VStack,
+  Button,
+  HStack,
+  Input,
+  Select,
+  Stack,
+} from "@chakra-ui/react"
 import { useFieldArray, useForm } from "react-hook-form"
 
 const AddShiftForm = () => {
   const { control, watch, register, handleSubmit, formState } = useForm({})
-  const { fields, insert, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "movies",
+    rules: {
+      minLength: 1,
+    },
   })
   const state = watch()
 
@@ -17,36 +29,62 @@ const AddShiftForm = () => {
   return (
     <Stack>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <select {...register("employeeId")}>
-          <option value="0">Mike</option>
-          <option value="1">Steeve</option>
-          <option value="2">Mark</option>
-        </select>
+        <FormControl>
+          <FormLabel>Employee</FormLabel>
+          <Select {...register("employeeId")} placeholder="Select an employee">
+            <option value="0">Mike</option>
+            <option value="1">Steeve</option>
+            <option value="2">Mark</option>
+          </Select>
+        </FormControl>
+        {state.employeeId != "" && (
+          <>
+            <FormControl>
+              <FormLabel>Date</FormLabel>
+              <Input type="date" {...register("date", { required: true })} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Start</FormLabel>
+              <Input type="time" {...register("start", { required: true })} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>End</FormLabel>
+              <Input type="time" {...register("end", { required: true })} />
+            </FormControl>
 
-        <input type="date" {...register("date")} />
-        <input type="time" {...register("start")} />
-        <input type="time" {...register("end")} />
+            <VStack my={6}>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => append("movie")}
+              >
+                add movie
+              </Button>
 
-        <input type="submit" value="submit" />
+              {fields.map((field, index) => (
+                <HStack key={field.id}>
+                  <FormLabel htmlFor="Movie Title">Title</FormLabel>
+                  <Input type="text" {...register(`movies.${index}`)} />
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    type="button"
+                    onClick={() => {
+                      remove(index)
+                    }}
+                  >
+                    remove
+                  </Button>
+                </HStack>
+              ))}
+            </VStack>
+            <Button type="submit" colorScheme="blue">
+              Submit
+            </Button>
+          </>
+        )}
       </form>
-
-      <ul>
-        {fields.map((field, index) => (
-          <div key={field.id}>
-            <label htmlFor="title">Title</label>
-            <input type="text" {...register(`movies.${index}.title`)} />
-
-            <button
-              type="button"
-              onClick={() => {
-                remove(index)
-              }}
-            >
-              remove
-            </button>
-          </div>
-        ))}
-      </ul>
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </Stack>
   )
