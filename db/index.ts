@@ -9,12 +9,6 @@ if (!connectionString) {
 export const pool = new Pool({ connectionString })
 export const client = new Client({ connectionString })
 
-export const sql = async (query: TemplateStringsArray) => {
-  return pool.query(query.toString())
+export const query = (text: string, params: string[]) => {
+  return pool.query(text, params)
 }
-
-const tiny = await sql`
-  CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
-  );`
