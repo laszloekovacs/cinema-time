@@ -27,7 +27,9 @@ export default function RootLayout({
             templateRows={"auto 1fr auto"}
           >
             <Header />
-            {children}
+            <Container maxW="container.lg" p={4}>
+              {children}
+            </Container>
             <Footer />
           </Grid>
         </Provider>

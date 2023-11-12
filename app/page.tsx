@@ -5,10 +5,10 @@ import MonthShifts from "./components/MonthShifts"
 
 const Home = () => {
   return (
-    <Container maxW="container.lg">
+    <>
       <MonthHoursTable />
       <MonthShifts />
-    </Container>
+    </>
   )
 }
 
