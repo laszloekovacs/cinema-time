@@ -10,7 +10,7 @@ CREATE TABLE "settings" (
 CREATE TABLE "employees" (
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(128) NOT NULL,
-  "contact" TEXT,
+  "contact" TEXT
 );
 
 -- shifts
@@ -21,7 +21,7 @@ CREATE TABLE "shifts" (
   "start" TIME NOT NULL,
   "end" TIME NOT NULL,
   "movies" TEXT[] NOT NULL CHECK (array_length("movies", 1) > 0),
-  CONSTRAINT "start_before_end" CHECK (start < end)
+  CONSTRAINT "start_before_end" CHECK ("start" < "end")
 );
 
 -- shifts with resolved names
