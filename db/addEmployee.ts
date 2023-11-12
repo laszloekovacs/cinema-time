@@ -1,4 +1,5 @@
 "use server"
+import { revalidatePath } from "next/cache"
 import { pool } from "./index"
 
 export const addEmployee = async (formData: FormData) => {
@@ -18,6 +19,7 @@ export const addEmployee = async (formData: FormData) => {
     await pool.query(query)
 
     console.log("employee added")
+    revalidatePath("/employees")
   } catch (error) {
     console.error(error)
   }
