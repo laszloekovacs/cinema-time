@@ -1,14 +1,7 @@
-import {
-  Text,
-  Box,
-  Button,
-  Container,
-  Flex,
-  Heading,
-  Spacer,
-} from "@chakra-ui/react"
+import { Box, Button, Container, Flex, Heading, Spacer } from "@chakra-ui/react"
 import React from "react"
 import Navigation from "./Navigation"
+import Link from "next/link"
 
 const Header = () => {
   return (
@@ -27,7 +20,12 @@ const Header = () => {
           <Flex direction={"row"} align={"center"}>
             <Navigation />
             <Spacer />
-            <Button colorScheme="teal" size="sm">
+            <Button
+              as={Link}
+              href="/shifts/create"
+              colorScheme="teal"
+              size="sm"
+            >
               New Report
             </Button>
           </Flex>

@@ -7,7 +7,7 @@ const EmployeesPage = () => {
   return (
     <>
       <Flex direction={"row"} justify={"space-between"}>
-        <Heading>Employees</Heading>
+        <Heading size={"lg"}>Employees</Heading>
         <AddEmployeeModal />
       </Flex>
       <EmployeesList />
