@@ -1,6 +1,9 @@
-import { Box, Flex, Heading, Hide } from "@chakra-ui/react"
 import React from "react"
 import {
+  Box,
+  Flex,
+  Heading,
+  Hide,
   Table,
   Thead,
   Tbody,

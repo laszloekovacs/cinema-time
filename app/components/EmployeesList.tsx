@@ -1,17 +1,6 @@
-"use client"
-import { Link } from "@chakra-ui/next-js"
-import {
-  List,
-  ListItem,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react"
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react"
 import React from "react"
+import EmployeeListItem from "./EmployeeListItem"
 
 const employees = [
   {
@@ -43,14 +32,7 @@ const EmployeesList = () => {
         </Thead>
         <Tbody>
           {employees.map((employee) => (
-            <Tr key={employee.id}>
-              <Td>
-                <Link as={Link} href={`/employees/${employee.id}`}>
-                  {employee.name}
-                </Link>
-              </Td>
-              <Td>{employee.contact}</Td>
-            </Tr>
+            <EmployeeListItem key={employee.id} {...employee} />
           ))}
         </Tbody>
       </Table>

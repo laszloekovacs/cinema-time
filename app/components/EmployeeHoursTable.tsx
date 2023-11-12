@@ -1,4 +1,3 @@
-"use client"
 import React from "react"
 import {
   Table,
@@ -11,25 +10,26 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react"
+import EmployeeHoursTableItem from "./EmployeeHoursTableItem"
 
 const hoursThisMonth = [
   {
     id: 1,
     name: "John Doe",
-    hours: 10,
-    payment: 100,
+    hours: "10",
+    payment: "100",
   },
   {
     id: 2,
     name: "Jane Doe",
-    hours: 5,
-    payment: 50,
+    hours: "5",
+    payment: "50",
   },
   {
     id: 3,
     name: "Bob Smith",
-    hours: 8,
-    payment: 80,
+    hours: "8",
+    payment: "80",
   },
 ]
 
@@ -50,20 +50,14 @@ const EmployeeHoursTable = () => {
         </Thead>
         <Tbody>
           {hoursThisMonth.map((employee) => (
-            <Tr>
-              <Td>{employee.name}</Td>
-              <Td isNumeric>{employee.hours}</Td>
-              <Td isNumeric>{employee.payment}</Td>
-            </Tr>
+            <EmployeeHoursTableItem key={employee.id} {...employee} />
           ))}
         </Tbody>
         <Tfoot>
           <Tr>
             <Th>Total</Th>
-            <Th isNumeric>{hoursThisMonth.reduce((a, b) => a + b.hours, 0)}</Th>
-            <Th isNumeric>
-              {hoursThisMonth.reduce((a, b) => a + b.payment, 0)}
-            </Th>
+            <Th isNumeric>{100}</Th>
+            <Th isNumeric>{70}</Th>
           </Tr>
         </Tfoot>
       </Table>
