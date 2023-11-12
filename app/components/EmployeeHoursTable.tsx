@@ -11,7 +11,6 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react"
-import { Link } from "@chakra-ui/next-js"
 
 const hoursThisMonth = [
   {
@@ -34,7 +33,7 @@ const hoursThisMonth = [
   },
 ]
 
-const MonthHoursTable = () => {
+const EmployeeHoursTable = () => {
   return (
     <TableContainer my={6}>
       <Table size={"sm"}>
@@ -72,4 +71,4 @@ const MonthHoursTable = () => {
   )
 }
 
-export default MonthHoursTable
+export default EmployeeHoursTable

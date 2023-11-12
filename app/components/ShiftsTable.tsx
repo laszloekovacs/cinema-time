@@ -41,7 +41,7 @@ const shiftsThisMonth = [
   },
 ]
 
-const MonthShifts = () => {
+const ShiftsTable = () => {
   return (
     <TableContainer py={6}>
       <Table size="sm">
@@ -91,4 +91,4 @@ const MonthShifts = () => {
   )
 }
 
-export default MonthShifts
+export default ShiftsTable

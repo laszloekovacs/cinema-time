@@ -1,13 +1,12 @@
 import React from "react"
-import { Container, Grid, Heading } from "@chakra-ui/react"
-import MonthHoursTable from "./components/MonthHoursTable"
-import MonthShifts from "./components/MonthShifts"
+import EmployeeHoursTable from "./components/EmployeeHoursTable"
+import ShiftsTable from "./components/ShiftsTable"
 
 const Home = () => {
   return (
     <>
-      <MonthHoursTable />
-      <MonthShifts />
+      <EmployeeHoursTable />
+      <ShiftsTable />
     </>
   )
 }
