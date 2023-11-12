@@ -9,6 +9,6 @@ if (!connectionString) {
 export const pool = new Pool({ connectionString })
 export const client = new Client({ connectionString })
 
-export const query = (text: string, params: string[]) => {
+export const query = (text: string, params?: string[]) => {
   return pool.query(text, params)
 }
