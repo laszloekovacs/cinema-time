@@ -1,4 +1,5 @@
 "use client"
+import { addEmployee } from "@/db/addEmployee"
 import {
   Text,
   Button,
@@ -27,29 +28,40 @@ const AddEmployeeModal = () => {
     />
   )
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    onClose()
+  }
+
   return (
     <>
       <Button onClick={onOpen}>Add Employee</Button>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         <Overlay />
-        <ModalContent>
-          <ModalHeader>Add Employee</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Stack spacing={4}>
-              <Input variant="flushed" placeholder="Name" />
-              <Input variant="flushed" placeholder="Contact" />
-            </Stack>
-          </ModalBody>
-          <ModalFooter justifyContent={"space-between"}>
-            <Button mr={3} disabled>
-              Create
-            </Button>
-            <Button onClick={onClose} variant="ghost">
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
+        <form action={addEmployee} onSubmit={handleSubmit}>
+          <ModalContent>
+            <ModalHeader>Add Employee</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Stack spacing={4}>
+                <Input
+                  variant="flushed"
+                  name="name"
+                  placeholder="Name"
+                  required
+                />
+                <Input
+                  variant="flushed"
+                  name="contact"
+                  placeholder="Contact"
+                  required
+                />
+              </Stack>
+            </ModalBody>
+            <ModalFooter justifyContent={"space-between"}>
+              <Input type="submit" value="Create" />
+            </ModalFooter>
+          </ModalContent>
+        </form>
       </Modal>
     </>
   )
