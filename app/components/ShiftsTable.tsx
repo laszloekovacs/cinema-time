@@ -44,7 +44,7 @@ const shiftsThisMonth = [
   },
 ]
 
-const ShiftsTable = () => {
+const ShiftsTable = ({ shifts }: { shifts?: any }) => {
   return (
     <TableContainer py={6}>
       <Table size="sm">

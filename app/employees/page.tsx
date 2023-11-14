@@ -3,7 +3,7 @@ import React from "react"
 import EmployeesList from "../components/EmployeesList"
 import AddEmployeeModal from "../components/AddEmployeeModal"
 
-const EmployeesPage = () => {
+const Page = () => {
   return (
     <>
       <Flex direction={"row"} justify={"space-between"}>
@@ -15,4 +15,4 @@ const EmployeesPage = () => {
   )
 }
 
-export default EmployeesPage
+export default Page
