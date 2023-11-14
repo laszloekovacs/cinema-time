@@ -1,3 +1,4 @@
+import "server-only"
 import React from "react"
 import {
   VStack,
@@ -7,7 +8,8 @@ import {
   FormHelperText,
 } from "@chakra-ui/react"
 import { pool } from "@/db"
-import "server-only"
+import { setHourlyRate } from "@/db/setHourlyRate"
+import { revalidateTag } from "next/cache"
 
 type KV = {
   key: string
@@ -17,11 +19,17 @@ type KV = {
 const getSettings = async () => {
   try {
     const query = await pool.query<KV>({
-      text: "SELECT * FROM settings",
+      text: "SELECT key, value FROM settings",
       values: [],
     })
 
-    return query.rows
+    const map = new Map<string, string>()
+
+    query.rows.forEach((row) => {
+      map.set(row.key, row.value)
+    })
+
+    return map
   } catch (error) {
     console.error(error)
   }
@@ -29,14 +37,19 @@ const getSettings = async () => {
 
 const SettingsContent = async () => {
   const settings = await getSettings()
-  const map = new Map(settings?.map((s) => [s.key, s.value]))
+
+  console.log(settings)
 
   return (
-    <form>
+    <form action={setHourlyRate}>
       <VStack gap={4}>
         <FormControl>
           <FormLabel>Hourly Rate</FormLabel>
-          <Input defaultValue={map.get("hourly_rate") || 0} />
+          <Input
+            type="number"
+            name="hourly_rate"
+            defaultValue={settings?.get("hourly_rate")}
+          />
           <FormHelperText>Enter your hourly rate</FormHelperText>
         </FormControl>
         <FormControl>
