@@ -1,7 +1,7 @@
 "use client"
+
 import { addEmployee } from "@/db/addEmployee"
 import {
-  Text,
   Button,
   Modal,
   ModalBody,
@@ -10,15 +10,17 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Input,
   useDisclosure,
   Stack,
-  Input,
+  useToast,
 } from "@chakra-ui/react"
+
 import React from "react"
 
 const AddEmployeeModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const toast = useToast()
   const Overlay = () => (
     <ModalOverlay
       onClick={onClose}
@@ -29,6 +31,13 @@ const AddEmployeeModal = () => {
   )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    toast({
+      title: "Employee added",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    })
+
     onClose()
   }
 

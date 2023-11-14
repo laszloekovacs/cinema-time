@@ -1,6 +1,7 @@
 "use server"
+
 import { revalidatePath } from "next/cache"
-import { pool } from "./index"
+import { pool } from "."
 
 export const addEmployee = async (formData: FormData) => {
   try {
