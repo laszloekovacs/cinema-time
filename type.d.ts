@@ -22,3 +22,8 @@ type ShiftView = {
   end: string
   movies: string[]
 }
+
+type KV = {
+  key: string
+  value: string
+}

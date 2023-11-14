@@ -1,13 +1,14 @@
-import React from "react"
+import "server-only"
 import ShiftsTable from "../components/ShiftsTable"
-import { Stack } from "@chakra-ui/react"
 
-const ReportPage = () => {
+// TODO: add query
+
+const Page = () => {
   return (
-    <Stack>
+    <>
       <ShiftsTable />
-    </Stack>
+    </>
   )
 }
 
-export default ReportPage
+export default Page

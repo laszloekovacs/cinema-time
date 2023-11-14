@@ -10,15 +10,10 @@ import {
 import { pool } from "@/db"
 import { setHourlyRate } from "@/db/setHourlyRate"
 
-type KV = {
-  key: string
-  value: string
-}
-
 const getSettings = async () => {
   try {
     const query = await pool.query<KV>({
-      text: "SELECT key, value FROM settings",
+      text: "SELECT key, value FROM Settings",
       values: [],
     })
 
