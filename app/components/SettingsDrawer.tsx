@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { Suspense } from "react"
 import {
   useDisclosure,
   Button,
@@ -12,7 +12,7 @@ import {
   DrawerCloseButton,
   DrawerFooter,
 } from "@chakra-ui/react"
-import DbResetButton from "./DbResetButton"
+import SettingsContent from "./SettingsContent"
 
 const SettingsDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -26,7 +26,11 @@ const SettingsDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Settings</DrawerHeader>
 
-          <DrawerBody>{"body"}</DrawerBody>
+          <DrawerBody>
+            <Suspense fallback={<div>Loading...</div>}>
+              <SettingsContent />
+            </Suspense>
+          </DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={"auto"} onClick={onClose}>

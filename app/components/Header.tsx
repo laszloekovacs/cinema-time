@@ -26,7 +26,7 @@ const Header = () => {
               colorScheme="teal"
               size="sm"
             >
-              New Report
+              Report Shift
             </Button>
           </Flex>
         </Container>
