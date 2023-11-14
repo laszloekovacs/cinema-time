@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
+import { createReportAction } from "@/db/createReportAction"
 
 const ReportShiftForm = ({ employees }: { employees: Employee[] }) => {
   const toast = useToast()
@@ -27,7 +28,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] }) => {
   })
   const state = watch()
 
-  const onSubmit = (data: any) => {
+  const onValid = (data: any) => {
     console.log(data)
     toast({
       title: "Shift added",
@@ -41,7 +42,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] }) => {
 
   return (
     <Stack>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onValid)} action={createReportAction}>
         <FormControl>
           <FormLabel>Employee</FormLabel>
           <Select {...register("employeeId")} placeholder="Select an employee">
@@ -61,9 +62,6 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] }) => {
             <FormControl>
               <FormLabel>Start</FormLabel>
               <Input type="time" {...register("start", { required: true })} />
-              <FormErrorMessage>
-                {formState.errors.root?.message}
-              </FormErrorMessage>
             </FormControl>
             <FormControl>
               <FormLabel>End</FormLabel>

@@ -5,24 +5,16 @@ import { pool } from "@/db"
 
 const queryEmployees = async () => {
   try {
-    const query = await pool.query<Employee>({
-      text: "SELECT * FROM employees",
-      values: [],
-    })
+    const res = await pool.query<Employee>("SELECT * FROM employees")
 
-    return query.rows
-  } catch (error) {
-    console.error(error)
+    return res.rows
+  } catch (error: unknown | Error) {
+    throw error
   }
 }
 
 const Page = async () => {
   const employees = await queryEmployees()
-
-  if (!employees) {
-    console.log("no employees add more")
-    return null
-  }
 
   return <ReportShiftForm employees={employees} />
 }
