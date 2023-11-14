@@ -13,11 +13,15 @@ export const addEmployee = async (formData: FormData) => {
     }
 
     const query = {
-      text: "INSERT INTO employees (name, contact) VALUES ($1, $2)",
+      text: "INSERT INTO Employees (name, contact) VALUES ($1, $2)",
       values: [name, contact],
     }
 
-    await pool.query(query)
+    const res = await pool.query(query)
+
+    if (res.rowCount == 0) {
+      throw new Error("Failed to add employee")
+    }
 
     console.log("employee added")
     revalidatePath("/employees")
