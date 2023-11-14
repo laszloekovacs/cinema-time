@@ -7,6 +7,7 @@ import {
   FormHelperText,
 } from "@chakra-ui/react"
 import { pool } from "@/db"
+import "server-only"
 
 type KV = {
   key: string

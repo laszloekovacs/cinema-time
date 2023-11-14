@@ -2,6 +2,7 @@ import React from "react"
 import Link from "next/link"
 import { Link as ChakraLink, Flex, Tooltip } from "@chakra-ui/react"
 import SettingsDrawer from "./SettingsDrawer"
+import SettingsContent from "./SettingsContent"
 
 const Navigation = () => (
   <Flex gap={4} my={4} align={"center"}>
@@ -24,7 +25,9 @@ const Navigation = () => (
         Shifts
       </ChakraLink>
     </Tooltip>
-    <SettingsDrawer />
+    <SettingsDrawer>
+      <SettingsContent />
+    </SettingsDrawer>
   </Flex>
 )
 

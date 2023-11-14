@@ -12,9 +12,8 @@ import {
   DrawerCloseButton,
   DrawerFooter,
 } from "@chakra-ui/react"
-import SettingsContent from "./SettingsContent"
 
-const SettingsDrawer = () => {
+const SettingsDrawer = ({ children }: { children: React.ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -26,11 +25,7 @@ const SettingsDrawer = () => {
           <DrawerCloseButton />
           <DrawerHeader>Settings</DrawerHeader>
 
-          <DrawerBody>
-            <Suspense fallback={<div>Loading...</div>}>
-              <SettingsContent />
-            </Suspense>
-          </DrawerBody>
+          <DrawerBody>{children}</DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={"auto"} onClick={onClose}>
