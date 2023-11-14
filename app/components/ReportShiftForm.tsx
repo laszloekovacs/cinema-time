@@ -9,10 +9,14 @@ import {
   Select,
   Stack,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react"
 import { useFieldArray, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
-const AddShiftForm = () => {
+const ReportShiftForm = ({ employees }: { employees: Employee[] }) => {
+  const toast = useToast()
+  const router = useRouter()
   const { control, watch, register, handleSubmit, formState } = useForm({})
   const { fields, append, remove } = useFieldArray({
     control,
@@ -25,6 +29,14 @@ const AddShiftForm = () => {
 
   const onSubmit = (data: any) => {
     console.log(data)
+    toast({
+      title: "Shift added",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    })
+
+    router.push("/")
   }
 
   return (
@@ -33,9 +45,11 @@ const AddShiftForm = () => {
         <FormControl>
           <FormLabel>Employee</FormLabel>
           <Select {...register("employeeId")} placeholder="Select an employee">
-            <option value="0">Mike</option>
-            <option value="1">Steeve</option>
-            <option value="2">Mark</option>
+            {employees.map((employee) => (
+              <option key={employee.id} value={employee.id}>
+                {employee.name}
+              </option>
+            ))}
           </Select>
         </FormControl>
         {state.employeeId != "" && (
@@ -94,4 +108,4 @@ const AddShiftForm = () => {
   )
 }
 
-export default AddShiftForm
+export default ReportShiftForm

@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react"
 import { pool } from "@/db"
 import { setHourlyRate } from "@/db/setHourlyRate"
-import { revalidateTag } from "next/cache"
 
 type KV = {
   key: string
@@ -37,8 +36,6 @@ const getSettings = async () => {
 
 const SettingsContent = async () => {
   const settings = await getSettings()
-
-  console.log(settings)
 
   return (
     <form action={setHourlyRate}>
