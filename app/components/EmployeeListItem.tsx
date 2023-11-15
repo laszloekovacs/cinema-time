@@ -3,15 +3,8 @@
 import { Td, Tr } from "@chakra-ui/react"
 import { useRouter } from "next/navigation"
 
-const EmployeeListItem = ({
-  id,
-  name,
-  contact,
-}: {
-  id: number
-  name: string
-  contact: string
-}) => {
+const EmployeeListItem = ({ employee }: { employee: Employee }) => {
+  const { id, name, contact } = employee
   const router = useRouter()
 
   const handleClick = (id: number) => {

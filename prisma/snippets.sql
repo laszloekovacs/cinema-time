@@ -1,5 +1,4 @@
 
-
 -- EmployeeShiftView
 CREATE OR REPLACE VIEW "EmployeeShiftView" AS 
 SELECT 
