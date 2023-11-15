@@ -11,21 +11,17 @@ import { pool } from "@/db"
 import { setHourlyRate } from "@/db/setHourlyRate"
 
 const getSettings = async () => {
+  const map = new Map<string, string>()
   try {
-    const query = await pool.query<KV>({
-      text: "SELECT key, value FROM Settings",
-      values: [],
-    })
-
-    const map = new Map<string, string>()
+    const query = await pool.query<KV>("SELECT key, value FROM settings")
 
     query.rows.forEach((row) => {
       map.set(row.key, row.value)
     })
-
-    return map
   } catch (error) {
-    console.error(error)
+    throw error
+  } finally {
+    return map
   }
 }
 
@@ -40,7 +36,7 @@ const SettingsContent = async () => {
           <Input
             type="number"
             name="hourly_rate"
-            defaultValue={settings?.get("hourly_rate")}
+            defaultValue={settings.get("hourly_rate")}
           />
           <FormHelperText>Enter your hourly rate</FormHelperText>
         </FormControl>

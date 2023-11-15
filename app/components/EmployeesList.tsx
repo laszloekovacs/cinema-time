@@ -28,14 +28,18 @@ type Employee = {
 }
 
 const getEmployees = async () => {
-  const query = {
-    text: "SELECT * FROM employees",
-    values: [],
+  try {
+    const query = {
+      text: "SELECT * FROM employees",
+      values: [],
+    }
+
+    const result = await pool.query<Employee>(query)
+
+    return result.rows
+  } catch (error: unknown | Error) {
+    console.error(error)
   }
-
-  const result = await pool.query<Employee>(query)
-
-  return result.rows
 }
 
 const EmployeesList = async () => {
@@ -51,9 +55,10 @@ const EmployeesList = async () => {
           </Tr>
         </Thead>
         <Tbody>
-          {list.map((employee) => (
-            <EmployeeListItem key={employee.id} {...employee} />
-          ))}
+          {list &&
+            list.map((employee) => (
+              <EmployeeListItem key={employee.id} {...employee} />
+            ))}
         </Tbody>
       </Table>
     </TableContainer>
