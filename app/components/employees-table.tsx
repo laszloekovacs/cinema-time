@@ -1,11 +1,12 @@
+"use client"
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react"
 import React from "react"
 import EmployeesTableItem from "./employees-table-item"
 import { Employee } from "@prisma/client"
 
-const EmployeesTable = async ({ employees }: { employees: Employee[] }) => {
+const EmployeesTable = ({ employees }: { employees: Employee[] }) => {
   return (
-    <TableContainer my={6} mx={"auto"}>
+    <TableContainer my={6}>
       <Table>
         <Thead>
           <Tr>

@@ -26,6 +26,7 @@ const Page = async () => {
         <Heading size={"lg"}>Employees</Heading>
         <AddEmployeeModal />
       </Flex>
+
       {employees && <EmployeesTable employees={employees} />}
 
       {!employees && (
