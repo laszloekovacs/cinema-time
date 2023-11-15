@@ -19,7 +19,7 @@ model Settings {
 model Employee {
   id      Int     @id @default(autoincrement())
   name    String
-  contact String
+  contact String?
   shifts  Shift[]
 }
 
@@ -35,8 +35,8 @@ model Shift {
 
 view EmployeeShiftView {
   id            Int      @unique
-  start         DateTime @db.Timetz()
-  end           DateTime @db.Timetz()
+  start         DateTime @db.Time()
+  end           DateTime @db.Time()
   date          DateTime @db.Date()
   movies        String[]
   employee_name String
