@@ -16,10 +16,11 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react"
-import { ErrorMessage, Form, Formik } from "formik"
+import { Form, Formik } from "formik"
 
 const AddEmployeeForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast()
 
   return (
     <>
@@ -34,18 +35,59 @@ const AddEmployeeForm = () => {
 
         <Formik
           initialValues={{
-            employee: "",
+            name: "",
             contact: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setSubmitting(true)
-            console.log(values)
-            onClose()
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              setSubmitting(true)
+              console.log(values)
+
+              toast({
+                title: "submitting",
+                description: "Submitting form",
+                status: "info",
+                duration: 3000,
+                isClosable: true,
+              })
+
+              const res = await fetch("/api/employees", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+              })
+
+              const data: ApiResult = await res.json()
+
+              if (data.error) {
+                throw new Error(data.error)
+              }
+
+              onClose()
+              toast({
+                title: "Success",
+                description: "Employee added",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+              })
+            } catch (error: unknown | Error) {
+              toast({
+                title: "Error",
+                description: (error as Error).message,
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+              })
+            }
+
             setSubmitting(false)
           }}
           validate={(values) => {
-            if (values.employee.length < 3) {
-              return { employee: "Name required, must be 3 characters or more" }
+            if (values.name.length < 3) {
+              return { name: "Name required, must be 3 characters or more" }
             }
           }}
         >
@@ -56,16 +98,16 @@ const AddEmployeeForm = () => {
                 <ModalCloseButton />
                 <ModalBody>
                   <Stack spacing={4}>
-                    <FormControl isInvalid={!!errors.employee}>
+                    <FormControl isInvalid={!!errors.name}>
                       <Input
                         variant="flushed"
-                        name="employee"
+                        name="name"
                         placeholder="Name"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.employee}
+                        value={values.name}
                       />
-                      <FormErrorMessage>{errors.employee}</FormErrorMessage>
+                      <FormErrorMessage>{errors.name}</FormErrorMessage>
                     </FormControl>
 
                     <FormControl>
