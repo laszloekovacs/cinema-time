@@ -1,20 +1,16 @@
 "use client"
 import { Td, Tr } from "@chakra-ui/react"
+import { EmployeeHoursThisMonth } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import React from "react"
 
 const EmployeeHoursTableItem = ({
-  id,
-  name,
   hours,
-  payment,
 }: {
-  id: number
-  name: string
-  hours: string
-  payment: string
+  hours: EmployeeHoursThisMonth
 }) => {
   const router = useRouter()
+  const { employee_id, employee_name, hours: hoursThisMonth } = hours
 
   const handleClick = (id: number) => {
     router.push(`/employees/${id}`)
@@ -22,12 +18,12 @@ const EmployeeHoursTableItem = ({
 
   return (
     <Tr
-      onClick={() => handleClick(id)}
+      onClick={() => handleClick(employee_id)}
       _hover={{ cursor: "pointer", bg: "gray.100" }}
     >
-      <Td>{name}</Td>
-      <Td isNumeric>{hours}</Td>
-      <Td isNumeric>{payment}</Td>
+      <Td>{employee_name}</Td>
+      <Td isNumeric>{hoursThisMonth}</Td>
+      <Td isNumeric>{211}</Td>
     </Tr>
   )
 }

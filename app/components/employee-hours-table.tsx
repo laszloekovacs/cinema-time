@@ -9,40 +9,29 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react"
-import EmployeeHoursTableItem from "./EmployeeHoursTableItem"
-import { PrismaClient } from "@prisma/client"
-
-const hoursThisMonth = [
-  {
-    id: 1,
-    name: "John Doe",
-    hours: "10",
-    payment: "100",
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    hours: "5",
-    payment: "50",
-  },
-  {
-    id: 3,
-    name: "Bob Smith",
-    hours: "8",
-    payment: "80",
-  },
-]
+import EmployeeHoursTableItem from "./employee-hours-table-item"
+import { EmployeeHoursThisMonth, PrismaClient } from "@prisma/client"
 
 const getHours = async () => {
   try {
     const prisma = new PrismaClient()
+
+    const hours = await prisma.employeeHoursThisMonth.findMany()
+
+    return hours as EmployeeHoursThisMonth[]
   } catch (error: unknown | Error) {
     console.error(error)
     return null
   }
 }
 
-const EmployeeHoursTable = () => {
+const EmployeeHoursTable = async () => {
+  const hoursThisMonth = await getHours()
+
+  if (!hoursThisMonth) {
+    return null
+  }
+
   return (
     <TableContainer my={6}>
       <Table size={"sm"}>
@@ -58,8 +47,8 @@ const EmployeeHoursTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {hoursThisMonth.map((employee) => (
-            <EmployeeHoursTableItem key={employee.id} {...employee} />
+          {hoursThisMonth.map((hours) => (
+            <EmployeeHoursTableItem key={hours.employee_id} hours={hours} />
           ))}
         </Tbody>
         <Tfoot>
