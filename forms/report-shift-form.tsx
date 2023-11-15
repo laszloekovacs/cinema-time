@@ -28,9 +28,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
           end: "20:00",
           movies: [] as string[],
         }}
-        onSubmit={(values) => {
-          console.log(values)
-        }}
+        onSubmit={(values) => {}}
         validate={(values) => {
           const errors: any = {}
           if (!values.employee_id) {

@@ -43,7 +43,6 @@ const AddEmployeeForm = () => {
           onSubmit={async (values, { setSubmitting }) => {
             try {
               setSubmitting(true)
-              console.log(values)
 
               toast({
                 title: "submitting",
