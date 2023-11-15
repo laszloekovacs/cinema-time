@@ -1,5 +1,5 @@
 import "server-only"
-import ReportShiftForm from "@/forms/ReportShiftForm"
+import ReportShiftForm from "@/forms/report-shift-form"
 
 const Page = async () => {
   /*

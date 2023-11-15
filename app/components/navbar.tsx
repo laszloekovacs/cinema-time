@@ -2,7 +2,7 @@ import React from "react"
 import Link from "next/link"
 import { Link as ChakraLink, Flex, Tooltip } from "@chakra-ui/react"
 import SettingsDrawer from "./settings-drawer"
-import SettingsContent from "../../forms/settings-content"
+import SettingsContent from "../../forms/settings-form"
 
 const Navbar = () => (
   <Flex gap={4} my={4} align={"center"}>

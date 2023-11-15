@@ -21,6 +21,7 @@ const EmployeeShiftTable = ({
   shifts: EmployeeShiftView[]
   caption?: string
 }) => {
+  return null
   return (
     <TableContainer py={6}>
       <Table size="sm">

@@ -18,7 +18,7 @@ const Header = () => {
       <Box backgroundColor={"gray.100"}>
         <Container maxW="container.lg">
           <Flex direction={"row"} align={"center"}>
-            <navbar />
+            <Navbar />
             <Spacer />
             <Button
               as={Link}

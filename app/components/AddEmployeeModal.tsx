@@ -1,6 +1,5 @@
 "use client"
 
-import { addEmployee } from "@/db/addEmployee"
 import {
   Button,
   Modal,
@@ -46,7 +45,7 @@ const AddEmployeeModal = () => {
       <Button onClick={onOpen}>Add Employee</Button>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         <Overlay />
-        <form action={addEmployee} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <ModalContent>
             <ModalHeader>Add Employee</ModalHeader>
             <ModalCloseButton />
