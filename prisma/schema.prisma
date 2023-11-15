@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Settings {
+  key   String @id
+  value String
+}
+
+model Employee {
+  id      Int     @id @default(autoincrement())
+  name    String
+  contact String
+  shifts  Shift[]
+}
+
+model Shift {
+  id          Int      @id @default(autoincrement())
+  start       DateTime @db.Timetz()
+  end         DateTime @db.Timetz()
+  date        DateTime @db.Date()
+  movies      String[]
+  employee    Employee @relation(fields: [employee_id], references: [id])
+  employee_id Int
+}
+
+view EmployeeShiftView {
+  id            Int      @unique
+  start         DateTime @db.Timetz()
+  end           DateTime @db.Timetz()
+  date          DateTime @db.Date()
+  movies        String[]
+  employee_name String
+  hours         String
+}
