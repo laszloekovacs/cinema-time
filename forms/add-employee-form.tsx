@@ -17,10 +17,12 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react"
 import { Form, Formik } from "formik"
+import { useRouter } from "next/navigation"
 
 const AddEmployeeForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
+  const router = useRouter()
 
   return (
     <>
@@ -66,6 +68,7 @@ const AddEmployeeForm = () => {
               }
 
               onClose()
+              router.refresh()
               toast({
                 title: "Success",
                 description: "Employee added",
@@ -81,9 +84,9 @@ const AddEmployeeForm = () => {
                 duration: 3000,
                 isClosable: true,
               })
+            } finally {
+              setSubmitting(false)
             }
-
-            setSubmitting(false)
           }}
           validate={(values) => {
             if (values.name.length < 3) {

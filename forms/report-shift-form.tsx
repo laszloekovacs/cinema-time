@@ -1,6 +1,6 @@
 "use client"
 
-import { FieldArray, Formik } from "formik"
+import { Field, FieldArray, Form, Formik } from "formik"
 import {
   Stack,
   FormControl,
@@ -9,9 +9,11 @@ import {
   Select,
   Input,
   Button,
+  HStack,
+  Divider,
+  FormErrorMessage,
 } from "@chakra-ui/react"
 import { Employee } from "@prisma/client"
-import MovieFormItem from "./movie-form-item"
 
 const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
   if (!employees) return <Text>No employees found</Text>
@@ -24,15 +26,35 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
           date: new Date().toISOString().split("T")[0],
           start: "15:30",
           end: "20:00",
-          movies: [],
+          movies: [] as string[],
         }}
         onSubmit={(values) => {
           console.log(values)
         }}
+        validate={(values) => {
+          const errors: any = {}
+          if (!values.employee_id) {
+            errors.employee_id = "Required"
+          }
+          if (!values.date) {
+            errors.date = "Required"
+          }
+          if (!values.start) {
+            errors.start = "Required"
+          }
+          if (!values.end) {
+            errors.end = "Required"
+          }
+          if (values.movies.length == 0) {
+            errors.movies = "At least one movie is Required"
+          }
+
+          return errors
+        }}
       >
         {(frm) => (
           <>
-            <form>
+            <Form>
               <FormControl>
                 <FormLabel>Employee</FormLabel>
                 <Select
@@ -52,7 +74,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
               {/* do not show the form when there's no employee selected */}
               {frm.values.employee_id && (
                 <>
-                  <FormControl>
+                  <FormControl isInvalid={!!frm.errors.date}>
                     <FormLabel>Date</FormLabel>
                     <Input
                       type="date"
@@ -62,7 +84,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
                       onBlur={frm.handleBlur}
                     />
                   </FormControl>
-                  <FormControl>
+                  <FormControl isInvalid={!!frm.errors.start}>
                     <FormLabel>Shift Start</FormLabel>
                     <Input
                       type="time"
@@ -72,7 +94,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
                       onBlur={frm.handleBlur}
                     />
                   </FormControl>
-                  <FormControl>
+                  <FormControl isInvalid={!!frm.errors.end}>
                     <FormLabel>Shift End</FormLabel>
                     <Input
                       type="time"
@@ -82,29 +104,49 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
                       onBlur={frm.handleBlur}
                     />
                   </FormControl>
+                  <Divider my={6} />
                   {/* field array */}
                   <FieldArray
-                    name={"movies"}
-                    render={(arr) => (
-                      <div>
-                        <Button variant="outline" onClick={arr.push}>
-                          add
-                        </Button>
-
+                    name="movies"
+                    render={({ push, remove }) => (
+                      <Stack spacing={4} my={6}>
                         {frm.values.movies.map((movie, index) => (
-                          <MovieFormItem
-                            key={index}
-                            movie={movie}
-                            index={index}
-                          />
+                          <HStack key={index}>
+                            <FormControl>
+                              <Input
+                                as={Field}
+                                variant={"flushed"}
+                                type="text"
+                                name={`movies.${index}`}
+                                placeholder="Movie title"
+                              />
+                            </FormControl>
+                            <Button
+                              variant="outline"
+                              onClick={() => remove(index)}
+                            >
+                              remove
+                            </Button>
+                          </HStack>
                         ))}
-                      </div>
+                        <Button variant="outline" onClick={() => push("")}>
+                          add movie
+                        </Button>
+                        <FormControl isInvalid={!!frm.errors.movies}>
+                          <FormErrorMessage>
+                            {frm.errors.movies}
+                          </FormErrorMessage>
+                        </FormControl>
+                      </Stack>
                     )}
                   />
-                  {/* field array */}
+                  {/* submit button */}
+                  <Button colorScheme="blue" type="submit">
+                    Submit
+                  </Button>
                 </>
               )}
-            </form>
+            </Form>
           </>
         )}
       </Formik>
