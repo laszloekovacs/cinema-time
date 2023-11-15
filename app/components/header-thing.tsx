@@ -1,6 +1,6 @@
 import { Box, Button, Container, Flex, Heading, Spacer } from "@chakra-ui/react"
 import React from "react"
-import Navigation from "./Navigation"
+import Navbar from "./navbar"
 import Link from "next/link"
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
       <Box backgroundColor={"gray.100"}>
         <Container maxW="container.lg">
           <Flex direction={"row"} align={"center"}>
-            <Navigation />
+            <navbar />
             <Spacer />
             <Button
               as={Link}

@@ -1,10 +1,10 @@
 import React from "react"
 import Link from "next/link"
 import { Link as ChakraLink, Flex, Tooltip } from "@chakra-ui/react"
-import SettingsDrawer from "./SettingsDrawer"
-import SettingsContent from "./SettingsContent"
+import SettingsDrawer from "./settings-drawer"
+import SettingsContent from "../../forms/settings-content"
 
-const Navigation = () => (
+const Navbar = () => (
   <Flex gap={4} my={4} align={"center"}>
     <Tooltip
       label="quick overview of employees, latest shifts recored"
@@ -31,4 +31,4 @@ const Navigation = () => (
   </Flex>
 )
 
-export default Navigation
+export default Navbar

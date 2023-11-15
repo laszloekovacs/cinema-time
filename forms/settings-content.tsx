@@ -7,23 +7,6 @@ import {
   Input,
   FormHelperText,
 } from "@chakra-ui/react"
-import { pool } from "@/db"
-import { setHourlyRate } from "@/db/setHourlyRate"
-
-const getSettings = async () => {
-  const map = new Map<string, string>()
-  try {
-    const query = await pool.query<KV>("SELECT key, value FROM settings")
-
-    query.rows.forEach((row) => {
-      map.set(row.key, row.value)
-    })
-  } catch (error) {
-    throw error
-  } finally {
-    return map
-  }
-}
 
 const SettingsContent = async () => {
   const settings = await getSettings()
