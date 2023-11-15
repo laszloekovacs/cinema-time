@@ -12,3 +12,14 @@ SELECT
 CAST(EXTRACT(EPOCH FROM("s"."end" - "s"."start")) AS INTEGER) AS "hours"
 FROM "Shift" AS "s"
 JOIN "Employee" AS "e" ON "s"."employee_id" = "e"."id";
+
+-- EmployeeHoursThisMonth
+CREATE OR REPLACE VIEW "EmployeeHoursThisMonth" AS
+SELECT 
+"employee_id",
+"employee_name",
+SUM("hours") AS "hours"
+FROM "EmployeeShiftView"
+WHERE "date" >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY "employee_id", "employee_name"
+ORDER BY "hours" DESC;

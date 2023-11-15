@@ -43,3 +43,9 @@ view EmployeeShiftView {
   employee_id   Int      @unique
   hours         Int
 }
+
+view EmployeeHoursThisMonth {
+  employee_id   Int    @unique
+  employee_name String
+  hours         Int
+}
