@@ -25,8 +25,8 @@ model Employee {
 
 model Shift {
   id          Int      @id @default(autoincrement())
-  start       DateTime @db.Timetz()
-  end         DateTime @db.Timetz()
+  start       DateTime @db.Time()
+  end         DateTime @db.Time()
   date        DateTime @db.Date()
   movies      String[]
   employee    Employee @relation(fields: [employee_id], references: [id])
