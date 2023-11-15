@@ -2,7 +2,7 @@ import "server-only"
 import { Stack, Flex, Heading, Grid, Text } from "@chakra-ui/react"
 import React from "react"
 import EmployeesTable from "../components/employees-table"
-import AddEmployeeModal from "../components/AddEmployeeModal"
+import AddEmployeeForm from "@/forms/add-employee-form"
 import { PrismaClient } from "@prisma/client"
 
 const getEmployes = async () => {
@@ -24,7 +24,7 @@ const Page = async () => {
     <Stack>
       <Flex direction={"row"} justify={"space-between"}>
         <Heading size={"lg"}>Employees</Heading>
-        <AddEmployeeModal />
+        <AddEmployeeForm />
       </Flex>
 
       {employees && <EmployeesTable employees={employees} />}
