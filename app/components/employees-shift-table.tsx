@@ -12,44 +12,21 @@ import {
   TableContainer,
 } from "@chakra-ui/react"
 
-const shiftsThisMonth = [
-  {
-    employee: "Mike and the mech",
-    date: "2022-10-01",
-    start: "12:00",
-    end: "18:00",
-    movies: ["Jaws", "Jaws 2"],
-    hours: 8,
-    pay: 100,
-  },
-  {
-    employee: "Steeven",
-    date: "2022-10-01",
-    start: "12:00",
-    end: "18:00",
-    movies: ["Jaws", "Jaws 2"],
-    hours: 8,
-    pay: 100,
-  },
-  {
-    employee: "Mike",
-    date: "2022-10-01",
-    start: "12:00",
-    end: "18:00",
-    movies: ["Jaws", "Jaws 2"],
-    hours: 8,
-    pay: 100,
-  },
-]
+import { EmployeeShiftView } from "@prisma/client"
 
-const EmployeesShiftTable = ({ shifts }: { shifts?: any }) => {
+const EmployeeShiftTable = ({
+  shifts,
+  caption,
+}: {
+  shifts: EmployeeShiftView[]
+  caption?: string
+}) => {
   return (
     <TableContainer py={6}>
       <Table size="sm">
-        <TableCaption>Shifts This Month</TableCaption>
+        {caption && <TableCaption>{caption}</TableCaption>}
         <Thead>
           <Tr>
-            <Th>Employee</Th>
             <Th isNumeric>Date</Th>
             <Hide below="lg">
               <Th isNumeric>Start</Th>
@@ -65,13 +42,12 @@ const EmployeesShiftTable = ({ shifts }: { shifts?: any }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {shiftsThisMonth.map((shift) => (
-            <Tr key={shift.employee}>
-              <Td>{shift.employee}</Td>
-              <Td isNumeric>{shift.date}</Td>
+          {shifts.map((shift) => (
+            <Tr key={shift.id}>
+              <Td isNumeric>{shift.date.toString()}</Td>
               <Hide below="lg">
-                <Td isNumeric>{shift.start}</Td>
-                <Td isNumeric>{shift.end}</Td>
+                <Td isNumeric>{shift.start.toString()}</Td>
+                <Td isNumeric>{shift.end.toString()}</Td>
               </Hide>
               <Hide below="md">
                 <Td isNumeric>
@@ -82,7 +58,7 @@ const EmployeesShiftTable = ({ shifts }: { shifts?: any }) => {
               </Hide>
               <Td isNumeric>{shift.hours}</Td>
               <Hide below="md">
-                <Td isNumeric>{shift.pay}</Td>
+                <Td isNumeric>{122}</Td>
               </Hide>
             </Tr>
           ))}
@@ -92,4 +68,4 @@ const EmployeesShiftTable = ({ shifts }: { shifts?: any }) => {
   )
 }
 
-export default EmployeesShiftTable
+export default EmployeeShiftTable

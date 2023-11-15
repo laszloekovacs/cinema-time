@@ -1,12 +1,12 @@
 import "server-only"
-import EmployeesShiftTable from "../components/EmployeesShiftTable"
+import EmployeeShiftTable from "../components/employees-shift-table"
 
 // TODO: add query
 
 const Page = () => {
   return (
     <>
-      <EmployeesShiftTable />
+      <EmployeeShiftTable />
     </>
   )
 }

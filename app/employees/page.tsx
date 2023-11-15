@@ -1,7 +1,7 @@
 import "server-only"
 import { Stack, Flex, Heading, Grid, Text } from "@chakra-ui/react"
 import React from "react"
-import EmployeesTable from "../components/EmployeesTable"
+import EmployeesTable from "../components/employees-table"
 import AddEmployeeModal from "../components/AddEmployeeModal"
 import { PrismaClient } from "@prisma/client"
 

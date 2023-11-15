@@ -1,6 +1,6 @@
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react"
 import React from "react"
-import EmployeesTableItem from "./EmployeesTableItem"
+import EmployeesTableItem from "./employees-table-item"
 import { Employee } from "@prisma/client"
 
 const EmployeesTable = async ({ employees }: { employees: Employee[] }) => {

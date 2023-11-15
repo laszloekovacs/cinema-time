@@ -1,9 +1,10 @@
 import "server-only"
-import EmployeesShiftTable from "@/app/components/EmployeesShiftTable"
-import { Text, Heading, HStack, Stack } from "@chakra-ui/react"
+
+import { Text, Heading, HStack, Stack, Grid } from "@chakra-ui/react"
 import React from "react"
-import { PrismaClient } from "@prisma/client"
+import { EmployeeShiftView, Employee, PrismaClient } from "@prisma/client"
 import { notFound } from "next/navigation"
+import EmployeeShiftTable from "@/app/components/employees-shift-table"
 
 const getEmployeeById = async (id: number) => {
   try {
@@ -14,7 +15,7 @@ const getEmployeeById = async (id: number) => {
       },
     })
 
-    return employee
+    return employee as Employee
   } catch (error: unknown | Error) {
     console.error(error)
     return null
@@ -25,9 +26,11 @@ const getEmployeeShifts = async (id: number) => {
   try {
     const prisma = new PrismaClient()
     const shifts = await prisma.employeeShiftView.findMany({
-      where: {},
+      where: {
+        employee_id: id,
+      },
     })
-    return shifts
+    return shifts as EmployeeShiftView[]
   } catch (error: unknown | Error) {
     console.error(error)
     return null
@@ -50,7 +53,12 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
           id: {id}
         </Text>
       </HStack>
-      <EmployeeShiftsTable shifts={shifts} />
+      {shifts && <EmployeeShiftTable shifts={shifts} />}
+      {!shifts && (
+        <Grid placeContent={"center"}>
+          <Text>No shifts for this employee in the time frame</Text>
+        </Grid>
+      )}
     </Stack>
   )
 }
