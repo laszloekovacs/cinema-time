@@ -1,9 +1,9 @@
 "use client"
-
 import { Td, Tr } from "@chakra-ui/react"
+import { Employee } from "@prisma/client"
 import { useRouter } from "next/navigation"
 
-const EmployeeListItem = ({ employee }: { employee: Employee }) => {
+const EmployeesTableItem = ({ employee }: { employee: Employee }) => {
   const { id, name, contact } = employee
   const router = useRouter()
 
@@ -22,4 +22,4 @@ const EmployeeListItem = ({ employee }: { employee: Employee }) => {
   )
 }
 
-export default EmployeeListItem
+export default EmployeesTableItem

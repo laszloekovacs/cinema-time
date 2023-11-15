@@ -1,8 +1,6 @@
 import React from "react"
 import {
   Box,
-  Flex,
-  Heading,
   Hide,
   Table,
   Thead,
@@ -44,7 +42,7 @@ const shiftsThisMonth = [
   },
 ]
 
-const ShiftsTable = ({ shifts }: { shifts?: any }) => {
+const EmployeesShiftTable = ({ shifts }: { shifts?: any }) => {
   return (
     <TableContainer py={6}>
       <Table size="sm">
@@ -94,4 +92,4 @@ const ShiftsTable = ({ shifts }: { shifts?: any }) => {
   )
 }
 
-export default ShiftsTable
+export default EmployeesShiftTable

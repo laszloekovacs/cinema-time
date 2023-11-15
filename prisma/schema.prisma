@@ -40,5 +40,6 @@ view EmployeeShiftView {
   date          DateTime @db.Date()
   movies        String[]
   employee_name String
+  employee_id   Int      @unique
   hours         String
 }

@@ -1,48 +1,56 @@
 import "server-only"
-import ShiftsTable from "@/app/components/ShiftsTable"
-import { Text, Heading, HStack, VStack, Stack } from "@chakra-ui/react"
+import EmployeesShiftTable from "@/app/components/EmployeesShiftTable"
+import { Text, Heading, HStack, Stack } from "@chakra-ui/react"
 import React from "react"
-import { pool } from "@/db"
+import { PrismaClient } from "@prisma/client"
+import { notFound } from "next/navigation"
 
-const queryEmployee = async (id: number) => {
+const getEmployeeById = async (id: number) => {
   try {
-    const query = await pool.query<Employee>({
-      text: "SELECT * FROM employees WHERE id = $1",
-      values: [id],
+    const prisma = new PrismaClient()
+    const employee = await prisma.employee.findUnique({
+      where: {
+        id,
+      },
     })
 
-    return query?.rows[0]
-  } catch (error) {
+    return employee
+  } catch (error: unknown | Error) {
     console.error(error)
+    return null
   }
 }
 
-const queryEmployeeShift = async (id: number) => {
+const getEmployeeShifts = async (id: number) => {
   try {
-    const shifts = await pool.query<ShiftView>({
-      text: "SELECT * FROM shifts WHERE employee_id = $1",
-      values: [id],
+    const prisma = new PrismaClient()
+    const shifts = await prisma.employeeShiftView.findMany({
+      where: {},
     })
-
-    return shifts?.rows
-  } catch (error) {
+    return shifts
+  } catch (error: unknown | Error) {
     console.error(error)
+    return null
   }
 }
 
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
-  const employee = await queryEmployee(Number(id))
-  const shifts = await queryEmployeeShift(Number(id))
+  const employee = await getEmployeeById(parseInt(id))
+  const shifts = await getEmployeeShifts(parseInt(id))
+
+  if (!employee) {
+    notFound()
+  }
 
   return (
     <Stack>
       <HStack align={"center"} my={6} justify={"space-between"}>
-        <Heading size="lg">{employee?.name}</Heading>
+        <Heading size="lg">{employee.name}</Heading>
         <Text size="xs" color="gray.500">
           id: {id}
         </Text>
       </HStack>
-      <ShiftsTable shifts={shifts} />
+      <EmployeeShiftsTable shifts={shifts} />
     </Stack>
   )
 }
