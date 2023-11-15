@@ -1,16 +1,17 @@
 "use client"
 
-import { Formik } from "formik"
+import { FieldArray, Formik } from "formik"
 import {
   Stack,
   FormControl,
-  FormErrorMessage,
   FormLabel,
-  Input,
   Text,
   Select,
+  Input,
+  Button,
 } from "@chakra-ui/react"
 import { Employee } from "@prisma/client"
+import MovieFormItem from "./movie-form-item"
 
 const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
   if (!employees) return <Text>No employees found</Text>
@@ -21,7 +22,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
         initialValues={{
           employee_id: "",
           date: new Date().toISOString().split("T")[0],
-          start: "16:00",
+          start: "15:30",
           end: "20:00",
           movies: [],
         }}
@@ -48,8 +49,62 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
                   ))}
                 </Select>
               </FormControl>
+              {/* do not show the form when there's no employee selected */}
+              {frm.values.employee_id && (
+                <>
+                  <FormControl>
+                    <FormLabel>Date</FormLabel>
+                    <Input
+                      type="date"
+                      name="date"
+                      value={frm.values.date}
+                      onChange={frm.handleChange}
+                      onBlur={frm.handleBlur}
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Shift Start</FormLabel>
+                    <Input
+                      type="time"
+                      name="start"
+                      value={frm.values.start}
+                      onChange={frm.handleChange}
+                      onBlur={frm.handleBlur}
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Shift End</FormLabel>
+                    <Input
+                      type="time"
+                      name="end"
+                      value={frm.values.end}
+                      onChange={frm.handleChange}
+                      onBlur={frm.handleBlur}
+                    />
+                  </FormControl>
+                  {/* field array */}
+                  <FieldArray
+                    name={"movies"}
+                    render={(arr) => (
+                      <div>
+                        <Button variant="outline" onClick={arr.push}>
+                          add
+                        </Button>
+
+                        {frm.values.movies.map((movie, index) => (
+                          <MovieFormItem
+                            key={index}
+                            movie={movie}
+                            index={index}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  />
+                  {/* field array */}
+                </>
+              )}
             </form>
-            <pre>{JSON.stringify(frm.values, null, 2)}</pre>
           </>
         )}
       </Formik>
