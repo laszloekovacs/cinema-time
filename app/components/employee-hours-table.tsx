@@ -6,11 +6,11 @@ import {
   Tfoot,
   Tr,
   Th,
-  Td,
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react"
 import EmployeeHoursTableItem from "./EmployeeHoursTableItem"
+import { PrismaClient } from "@prisma/client"
 
 const hoursThisMonth = [
   {
@@ -32,6 +32,15 @@ const hoursThisMonth = [
     payment: "80",
   },
 ]
+
+const getHours = async () => {
+  try {
+    const prisma = new PrismaClient()
+  } catch (error: unknown | Error) {
+    console.error(error)
+    return null
+  }
+}
 
 const EmployeeHoursTable = () => {
   return (

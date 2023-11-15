@@ -41,6 +41,6 @@ SELECT
 "s"."movies",
 "e"."name" AS "employee_name",
 "e"."id" AS "employee_id",
-CAST(EXTRACT(EPOCH FROM("s"."end" - "s"."start")) AS TEXT) AS "hours"
+CAST(EXTRACT(EPOCH FROM("s"."end" - "s"."start")) AS INTEGER) AS "hours"
 FROM "Shift" AS "s"
 JOIN "Employee" AS "e" ON "s"."employee_id" = "e"."id";
