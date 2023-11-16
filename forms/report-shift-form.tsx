@@ -14,7 +14,7 @@ import {
   FormErrorMessage,
   useToast,
 } from "@chakra-ui/react"
-import { Employee } from "@prisma/client"
+import { Employee, Shift } from "@prisma/client"
 import { useRouter } from "next/navigation"
 
 const initialValues = {
@@ -39,31 +39,41 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
           try {
             setSubmitting(true)
 
+            // convert values to correct format before sending it over
+            const data: Omit<Shift, "id"> = {
+              employee_id: parseInt(values.employee_id),
+              date: new Date(values.date),
+              start: new Date("2000-01-01T" + values.start),
+              end: new Date("2000-01-01T" + values.end),
+              movies: values.movies,
+            }
+
             const res = await fetch("/api/reports", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(values),
+              body: JSON.stringify(data),
             })
 
-            const data: ApiResult = await res.json()
+            const status: ApiResult = await res.json()
 
-            if (!res.ok || data.error) {
+            if (!res.ok || status.error) {
               throw new Error(
-                "failed to create report: " + res.statusText || data.error
+                "failed to create report: " + res.statusText || status.error
               )
-            }
-            toast({
-              title: "created",
-              description: "report created",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            })
+            } else {
+              toast({
+                title: "created",
+                description: "report created",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+              })
 
-            setSubmitting(false)
-            router.push("/")
+              setSubmitting(false)
+              router.push("/")
+            }
           } catch (error: Error | unknown) {
             console.error(error)
 
