@@ -58,7 +58,6 @@ const EmployeeHoursTable = async () => {
           <Tr>
             <Th>Name</Th>
             <Th isNumeric>Hours This Month</Th>
-            <Th isNumeric>Payment</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -70,7 +69,6 @@ const EmployeeHoursTable = async () => {
           <Tr>
             <Th>Total</Th>
             <Th isNumeric>{TotalHours()}</Th>
-            <Th isNumeric>{70}</Th>
           </Tr>
         </Tfoot>
       </Table>

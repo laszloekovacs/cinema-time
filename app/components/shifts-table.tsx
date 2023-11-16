@@ -13,21 +13,22 @@ import {
 } from "@chakra-ui/react"
 
 import { EmployeeShiftView } from "@prisma/client"
+import { Duration } from "luxon"
 
-const EmployeeShiftTable = ({
+const ShiftsTable = ({
   shifts,
   caption,
 }: {
   shifts: EmployeeShiftView[]
   caption?: string
 }) => {
-  return null
   return (
     <TableContainer py={6}>
       <Table size="sm">
         {caption && <TableCaption>{caption}</TableCaption>}
         <Thead>
           <Tr>
+            <Th>Employee</Th>
             <Th isNumeric>Date</Th>
             <Hide below="lg">
               <Th isNumeric>Start</Th>
@@ -37,18 +38,16 @@ const EmployeeShiftTable = ({
               <Th isNumeric>Movies</Th>
             </Hide>
             <Th isNumeric>Hours</Th>
-            <Hide below="md">
-              <Th isNumeric>Payment</Th>
-            </Hide>
           </Tr>
         </Thead>
         <Tbody>
           {shifts.map((shift) => (
             <Tr key={shift.id}>
-              <Td isNumeric>{shift.date.toString()}</Td>
+              <Td>{shift.employee_name}</Td>
+              <Td isNumeric>{shift.date.toLocaleDateString("hu-HU")}</Td>
               <Hide below="lg">
-                <Td isNumeric>{shift.start.toString()}</Td>
-                <Td isNumeric>{shift.end.toString()}</Td>
+                <Td isNumeric>{shift.start.toLocaleTimeString("hu-HU")}</Td>
+                <Td isNumeric>{shift.end.toLocaleTimeString("hu-HU")}</Td>
               </Hide>
               <Hide below="md">
                 <Td isNumeric>
@@ -57,10 +56,11 @@ const EmployeeShiftTable = ({
                   ))}
                 </Td>
               </Hide>
-              <Td isNumeric>{shift.hours}</Td>
-              <Hide below="md">
-                <Td isNumeric>{122}</Td>
-              </Hide>
+              <Td isNumeric>
+                {Duration.fromObject({ minutes: shift.minutes }).toFormat(
+                  "hh:mm"
+                )}
+              </Td>
             </Tr>
           ))}
         </Tbody>
@@ -69,4 +69,4 @@ const EmployeeShiftTable = ({
   )
 }
 
-export default EmployeeShiftTable
+export default ShiftsTable

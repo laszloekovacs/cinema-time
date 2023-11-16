@@ -24,7 +24,6 @@ const EmployeeHoursTableItem = ({
     >
       <Td>{employee_name}</Td>
       <Td isNumeric>{Duration.fromObject({ minutes }).toFormat("hh:mm")}</Td>
-      <Td isNumeric>{211}</Td>
     </Tr>
   )
 }

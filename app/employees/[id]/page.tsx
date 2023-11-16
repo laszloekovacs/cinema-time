@@ -4,7 +4,7 @@ import { Text, Heading, HStack, Stack, Grid } from "@chakra-ui/react"
 import React from "react"
 import { EmployeeShiftView, Employee, PrismaClient } from "@prisma/client"
 import { notFound } from "next/navigation"
-import EmployeeShiftTable from "@/app/components/employees-shift-table"
+import ShiftsTable from "@/app/components/shifts-table"
 
 const getEmployeeById = async (id: number) => {
   try {
@@ -53,7 +53,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
           id: {id}
         </Text>
       </HStack>
-      {shifts && <EmployeeShiftTable shifts={shifts} />}
+      {shifts && <ShiftsTable shifts={shifts} />}
       {!shifts && (
         <Grid placeContent={"center"}>
           <Text>No shifts for this employee in the time frame</Text>
