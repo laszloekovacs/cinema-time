@@ -12,23 +12,66 @@ import {
   HStack,
   Divider,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react"
 import { Employee } from "@prisma/client"
+import { useRouter } from "next/navigation"
+
+const initialValues = {
+  employee_id: "",
+  date: new Date().toISOString().split("T")[0],
+  start: "15:30",
+  end: "20:00",
+  movies: [] as string[],
+}
 
 const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
+  const router = useRouter()
+  const toast = useToast()
+
   if (!employees) return <Text>No employees found</Text>
 
   return (
     <Stack>
       <Formik
-        initialValues={{
-          employee_id: "",
-          date: new Date().toISOString().split("T")[0],
-          start: "15:30",
-          end: "20:00",
-          movies: [] as string[],
+        initialValues={initialValues}
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            setSubmitting(true)
+
+            const res = await fetch("/api/reports", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+            })
+
+            if (!res.ok) {
+              throw new Error("failed to create report: " + res.statusText)
+            }
+            toast({
+              title: "created",
+              description: "report created",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+            })
+
+            setSubmitting(false)
+            router.push("/")
+          } catch (error: Error | unknown) {
+            console.error(error)
+
+            toast({
+              title: "Error",
+              description: (error as Error).message,
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+            })
+          }
         }}
-        onSubmit={(values) => {}}
         validate={(values) => {
           const errors: any = {}
           if (!values.employee_id) {
