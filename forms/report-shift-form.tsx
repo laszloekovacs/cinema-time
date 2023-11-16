@@ -47,8 +47,12 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
               body: JSON.stringify(values),
             })
 
-            if (!res.ok) {
-              throw new Error("failed to create report: " + res.statusText)
+            const data: ApiResult = await res.json()
+
+            if (!res.ok || data.error) {
+              throw new Error(
+                "failed to create report: " + res.statusText || data.error
+              )
             }
             toast({
               title: "created",
@@ -74,7 +78,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
         }}
         validate={(values) => {
           const errors: any = {}
-          if (!values.employee_id) {
+          if (values.employee_id == "") {
             errors.employee_id = "Required"
           }
           if (!values.date) {
@@ -99,6 +103,7 @@ const ReportShiftForm = ({ employees }: { employees: Employee[] | null }) => {
               <FormControl>
                 <FormLabel>Employee</FormLabel>
                 <Select
+                  itemType="number"
                   name="employee_id"
                   value={frm.values.employee_id}
                   onChange={frm.handleChange}
