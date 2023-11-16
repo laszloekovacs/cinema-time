@@ -25,3 +25,4 @@ the app uses Prisma with Postgres, it also has custom views in the schema. Next.
 - handle empty tables
 - better way of using env variables
 - check if movie titles are empty
+- cron job for populating the database
