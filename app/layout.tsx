@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import Provider from "./components/Provider"
+import Provider from "./components/providers"
 import { Container, Grid } from "@chakra-ui/react"
-import Header from "./components/header-thing"
-import Footer from "./components/footer-thing"
+import Header from "./components/header"
+import Footer from "./components/footer"
 
 export const metadata: Metadata = {
   title: "Cinema-time",
