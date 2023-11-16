@@ -4,7 +4,8 @@ WORKDIR /build
 
 COPY * /build
 
-RUN npm install && npm build
+RUN npm install 
+RUN npm run build
 
 # create new image
 FROM node:20-alpine
