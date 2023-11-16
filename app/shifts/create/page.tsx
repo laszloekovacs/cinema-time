@@ -15,7 +15,7 @@ const getEmployees = async (): Promise<Employee[] | null> => {
 
 const Page = async () => {
   const employees = await getEmployees()
-  console.log(employees)
+
   return <ReportShiftForm employees={employees} />
 }
 

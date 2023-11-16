@@ -23,7 +23,6 @@ export const POST = async (req: NextRequest) => {
     console.error(error)
     res.error = (error as Error).message
   } finally {
-    revalidatePath("/employees")
     return new Response(JSON.stringify(res))
   }
 }
