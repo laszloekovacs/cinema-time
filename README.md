@@ -23,3 +23,5 @@ the app uses Prisma with Postgres, it also has custom views in the schema. Next.
 - edit reported shifts
 - seeding and clearing the database
 - handle empty tables
+- better way of using env variables
+- check if movie titles are empty
