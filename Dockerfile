@@ -2,7 +2,7 @@ FROM --platform=amd64 node:20-alpine as build
 
 WORKDIR /build
 
-COPY * /build
+COPY . .
 
 RUN npm install 
 RUN npm run build
@@ -19,5 +19,5 @@ COPY --from=build /build/package*.json /app
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start" ]
 
