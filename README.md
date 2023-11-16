@@ -22,3 +22,4 @@ the app uses Prisma with Postgres, it also has custom views in the schema. Next.
 - delete / rename employees, edit employee contact details
 - edit reported shifts
 - seeding and clearing the database
+- handle empty tables
