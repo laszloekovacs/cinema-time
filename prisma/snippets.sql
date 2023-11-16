@@ -9,7 +9,7 @@ SELECT
 "s"."movies",
 "e"."name" AS "employee_name",
 "e"."id" AS "employee_id",
-CAST(EXTRACT(EPOCH FROM("s"."end" - "s"."start")) AS INTEGER) AS "hours"
+CAST(EXTRACT(EPOCH FROM("s"."end" - "s"."start")) AS INTEGER) AS "minutes"
 FROM "Shift" AS "s"
 JOIN "Employee" AS "e" ON "s"."employee_id" = "e"."id";
 
@@ -19,8 +19,8 @@ CREATE OR REPLACE VIEW "EmployeeHoursThisMonth" AS
 SELECT 
 "employee_id",
 "employee_name",
-SUM("hours") AS "hours"
+SUM("minutes") AS "minutes"
 FROM "EmployeeShiftView"
 WHERE "date" >= DATE_TRUNC('month', CURRENT_DATE)
 GROUP BY "employee_id", "employee_name"
-ORDER BY "hours" DESC;
+ORDER BY "minutes" DESC;

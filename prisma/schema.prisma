@@ -41,11 +41,11 @@ view EmployeeShiftView {
   movies        String[]
   employee_name String
   employee_id   Int      @unique
-  hours         Int
+  minutes       Int
 }
 
 view EmployeeHoursThisMonth {
   employee_id   Int    @unique
   employee_name String
-  hours         Int
+  minutes       Int
 }

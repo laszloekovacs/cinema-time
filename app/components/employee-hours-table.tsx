@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react"
 import EmployeeHoursTableItem from "./employee-hours-table-item"
 import { EmployeeHoursThisMonth, PrismaClient } from "@prisma/client"
+import { Duration } from "luxon"
 
 const getHours = async () => {
   try {
@@ -30,6 +31,19 @@ const EmployeeHoursTable = async () => {
 
   if (!hoursThisMonth) {
     return null
+  }
+
+  const TotalHours = () => {
+    let total = 0
+    hoursThisMonth.forEach((emp) => {
+      total += emp.minutes
+    })
+
+    const duration = Duration.fromObject({
+      minutes: total,
+    })
+
+    return duration.toHuman({ unitDisplay: "long" })
   }
 
   return (
@@ -54,7 +68,7 @@ const EmployeeHoursTable = async () => {
         <Tfoot>
           <Tr>
             <Th>Total</Th>
-            <Th isNumeric>{100}</Th>
+            <Th isNumeric>{TotalHours()}</Th>
             <Th isNumeric>{70}</Th>
           </Tr>
         </Tfoot>
