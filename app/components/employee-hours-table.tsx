@@ -35,6 +35,7 @@ const EmployeeHoursTable = async () => {
 
   const TotalHours = () => {
     let total = 0
+    // add all employee minutes together
     hoursThisMonth.forEach((emp) => {
       total += emp.minutes
     })
@@ -43,7 +44,7 @@ const EmployeeHoursTable = async () => {
       minutes: total,
     })
 
-    return duration.toHuman({ unitDisplay: "long" })
+    return duration.toFormat("hh:mm")
   }
 
   return (
