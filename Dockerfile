@@ -9,7 +9,7 @@ ENV DATABASE_URL=${DATABASE_URL}
 
 RUN npm install 
 RUN npx prisma generate
-RUN npx prisma migrate deploy
+# RUN npx prisma migrate deploy
 RUN npm run build
 
 # create new image
