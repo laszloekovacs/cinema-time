@@ -1,10 +1,20 @@
-FROM  node:20-alpine 
+FROM --platform=amd64 node:20-alpine as build
+
+WORKDIR /build
+
+COPY * /build
+
+RUN npm install && npm build
+
+# create new image
+FROM node:20-alpine
 
 WORKDIR /app
 
-COPY * /app
-
-RUN npm install && npm build
+COPY --from=build /build/.next /app/.next 
+COPY --from=build /build/node_modules /app/node_modules
+COPY --from=build /build/public /app/public
+COPY --from=build /build/package*.json /app
 
 EXPOSE 3000
 
