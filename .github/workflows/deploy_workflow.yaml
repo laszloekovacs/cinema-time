@@ -30,12 +30,11 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           build-args: "DATABASE_URL=${{ secrets.DATABASE_URL }}"
-          platforms: linux/arm64
           context: .
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
 
-      - name: ssh into raspberry pi server at home
+      - name: ssh into server at home
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -46,3 +45,4 @@ jobs:
             docker compose down
             docker compose up -d
             docker container prune
+            docker images prune
