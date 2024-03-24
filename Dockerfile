@@ -14,5 +14,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start" ]
+## until next stops static compiling...
+CMD [ "npm", "run", "dev" ]
 
